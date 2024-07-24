@@ -1,11 +1,11 @@
 # CODETECH-Task2
 
-#Name: Nagasanjai J
-#Company: CODE TECH
-#ID: CT4PP3046
-#Domain: Pyhton programming
-#Duration: 4 weeks
-#Mentor: Neelam harish
+**Name**: Nagasanjai J  
+**Company**: CODETECH  
+**ID**: CT4PP3046  
+**Domain**: Python Programming  
+**Duration**: 4 weeks  
+**Mentor**: Neelam harish  
 
 # Student Grade Calculator
 
