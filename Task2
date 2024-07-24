@@ -1,45 +1,75 @@
-# Grade calculator
-'''
-100 - 90 = O
-89 - 80 = a+
-79 - 70 = a
-69 - 60 = b
-59 - 50 = c
-49 - 0 = d
-'''
+class StudentGrades:
+    def __init__(self, student_name):
+        self.student_name = student_name
+        self.grades = {}
 
-subject = int(input("enter the number of subject > "))
-subject_list = []
+    def add_grade(self, subject, grade):
+        if subject in self.grades:
+            self.grades[subject].append(grade)
+        else:
+            self.grades[subject] = [grade]
 
-i = 0
-while i < subject:
-    user = input("enter the subject name > ")
-    subject_list.append(user)
-    i+=1
+    def calculate_average(self):
+        total_grades = 0
+        count = 0
+        for grades in self.grades.values():
+            total_grades += sum(grades)
+            count += len(grades)
+        return total_grades / count if count > 0 else 0
 
-grade_mark = []
-for i in subject_list:
-    marks = int(input(f"{i} enter the marks : "))
-    grade_mark.append(marks)
+    def determine_letter_grade(self, average):
+        if average >= 90:
+            return 'A'
+        elif average >= 80:
+            return 'B'
+        elif average >= 70:
+            return 'C'
+        elif average >= 60:
+            return 'D'
+        else:
+            return 'F'
 
-empty = dict(zip(grade_mark,subject_list))
-print(empty)
+    def calculate_gpa(self, average):
+        if average >= 90:
+            return 4.0
+        elif average >= 80:
+            return 3.0
+        elif average >= 70:
+            return 2.0
+        elif average >= 60:
+            return 1.0
+        else:
+            return 0.0
 
-final_list = {}
-final = []
+    def display_report(self):
+        print(f"Student: {self.student_name}")
+        print("Grades:")
+        for subject, grades in self.grades.items():
+            print(f"  {subject}: {grades}")
+        average = self.calculate_average()
+        letter_grade = self.determine_letter_grade(average)
+        gpa = self.calculate_gpa(average)
+        print(f"Average Grade: {average:.2f}")
+        print(f"Letter Grade: {letter_grade}")
+        print(f"GPA: {gpa:.2f}")
 
-for i in empty:
-    if i>=90 and i<=100:
-        pass
-    elif i>=80 and i<=89:
-        pass
-    elif i>=70 and i<=79:
-        pass
-    elif i>=60 and i<=69:
-        pass
-    elif i>=50 and i<=59:
-        pass
-    elif i>=0 and i<=49:
-        pass
-    else:
-        print("Invalid Option!")
+def main():
+    student_name = input("Enter the student's name: ")
+    student = StudentGrades(student_name)
+
+    while True:
+        subject = input("Enter the subject (or 'done' to finish): ")
+        if subject.lower() == 'done':
+            break
+        try:
+            grade = float(input(f"Enter the grade for {subject}: "))
+            if 0 <= grade <= 100:
+                student.add_grade(subject, grade)
+            else:
+                print("Please enter a valid grade between 0 and 100.")
+        except ValueError:
+            print("Invalid input. Please enter a numeric grade.")
+
+    student.display_report()
+
+main()
